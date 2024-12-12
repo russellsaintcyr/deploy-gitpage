@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 import { SearchResults, SpotifyApi } from '@spotify/web-api-ts-sdk';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
   title = 'deploy-gitpage';
   resultsArtist: SearchResults<readonly ["artist"]> | undefined;
+  playlistID = '6Bbuuyp4KHlCj080ShcqEc';
 
   constructor() {
     // const sdk = SpotifyApi.withUserAuthorization("client-id", "https://localhost:4200", ["scope1", "scope2"]);
@@ -32,5 +32,14 @@ export class AppComponent {
       followers: item.followers.total,
       popularity: item.popularity,
     })));
+
+    const playlist = api.playlists.getPlaylist(this.playlistID).then(value => {
+      console.log('playlist tracks', value)
+    }).catch(error => {
+      console.log('playlist tracks', error)
+    }).finally(() => {
+      console.log('finally')
+    })
+
   }
 }
