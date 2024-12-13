@@ -1,2 +1,9 @@
 <h1>Hi there</h1>
-resultsArtist?.artists?.total = {{resultsArtist?.artists?.total}}
+artists?.total = {{ resultsArtist?.artists?.total }}
+<!--@for (artist of resultsArtist?.artists?.items; track artist) {-->
+<!--  <li>{{ artist.name }}-->
+<!--    }-->
+
+@for (track of playlist?.tracks?.items; track track) {
+  <li>{{ track.id }}
+    }
