@@ -1,9 +1,30 @@
 <h1>Hi there</h1>
-artists?.total = {{ resultsArtist?.artists?.total }}
+playlist?.tracks = {{ playlist?.tracks?.total }}
+tracks?.items.length = {{ playlist?.tracks?.items.length }}
 <!--@for (artist of resultsArtist?.artists?.items; track artist) {-->
 <!--  <li>{{ artist.name }}-->
 <!--    }-->
 
-@for (track of playlist?.tracks?.items; track track) {
-  <li>{{ track.id }}
-    }
+<ol>
+  @for (track of playlist?.tracks?.items; track track) {
+    <li><b>{{ track.track.name }} </b> -
+      @for (artist of track.track.artists; track artist; let first = $first, last = $last) {
+        {{ artist.name }}<span *ngIf="!last">,</span>
+      } @empty {
+        <li><b>No artists found</b></li>
+      }
+      <img src="satisfied.svg"
+           (click)="rateTrack(track, 'high')"
+           alt="Yes"/>
+      <!--    <img src="satisfied.svg"/>-->
+      <img src="dissatisfied.svg"
+           (click)="rateTrack(track, 'medium')"
+           alt="Maybe"/>
+      <img src="neutral.svg"
+           (click)="rateTrack(track, 'low')"
+           alt="No"/>
+    </li>
+  } @empty {
+    <li>No tracks found</li>
+  }
+</ol>

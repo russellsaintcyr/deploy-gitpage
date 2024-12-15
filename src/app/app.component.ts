@@ -2,10 +2,13 @@ import { Component } from '@angular/core';
 // import { SearchResults, SpotifyApi } from '@spotify/web-api-ts-sdk';
 import * as Playlist from '../assets/json/playlist.json';
 import * as BeatlesArtists from '../assets/json/beatles-artists.json';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [],
+  imports: [
+    NgIf
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -14,6 +17,7 @@ export class AppComponent {
   resultsArtist: any;
   // resultsArtist: SearchResults<readonly ["artist"]> | undefined;
   playlistID = '6Bbuuyp4KHlCj080ShcqEc';
+
   playlist: {
     collaborative: boolean;
     description: string;
@@ -37,6 +41,10 @@ export class AppComponent {
     console.log('AppComponent constructor')
     // this.init();
     this.initLocal();
+    // this.http
+    //   .get('https://api.spotify.com/v1/playlists/6Bbuuyp4KHlCj080ShcqEc/tracks?offset=100&limit=100&locale=fr-CA,fr;q%3D0.9,en-CA;q%3D0.8,en-US;q%3D0.7,en;q%3D0.6').subscribe(results => {
+    //     console.log(results);
+    // })
   }
 
   // private async init() {
@@ -67,5 +75,9 @@ export class AppComponent {
   private initLocal() {
     this.resultsArtist = BeatlesArtists;
     this.playlist = Playlist;
+  }
+
+  rateTrack(track: any, rating: string) {
+    console.log(track, rating)
   }
 }
